@@ -1,57 +1,127 @@
 package com.jcm.br.financer.entity;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-@Data
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
-@Table(name = "tb_expense")
+@ToString
 @Entity
-public class Expense implements Serializable {
+@Table(name = "tb_expense")
+public class Expense  {
 	
-	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long titleId;
 	
-	@Column(nullable = false, length = 50)
 	private String title;
-	
 	private LocalDate registrationDate = LocalDate.now();
-	
-	@Column(nullable = false, length = 10)
 	private LocalDate purchaseDate;
-	
-	@Column(nullable = false, length = 10)
 	private LocalDate dueDate;
-	
-	@Column(nullable = false, length = 10)
 	private double value;
 	
-	@Column(nullable = false, length = 50)
+	@ManyToOne
+	@JoinColumn(name = "category_id")
 	private Category category;
 	
-	@Column(nullable = false, length = 50)
-	private PaymentForm paymentFor;
+	@ManyToOne
+	@JoinColumn(name = "paymentForm_id")
+	private PaymentForm paymentForm;
 	
-	@Column(nullable = false, length = 10)
 	private StatusExpense Status;
 	
-	@Column(nullable = false, length = 500)
 	private String observation;
+
+	public Long getTitleId() {
+		return titleId;
+	}
+
+	public void setTitleId(Long titleId) {
+		this.titleId = titleId;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public LocalDate getRegistrationDate() {
+		return registrationDate;
+	}
+
+	public void setRegistrationDate(LocalDate registrationDate) {
+		this.registrationDate = registrationDate;
+	}
+
+	public LocalDate getPurchaseDate() {
+		return purchaseDate;
+	}
+
+	public void setPurchaseDate(LocalDate purchaseDate) {
+		this.purchaseDate = purchaseDate;
+	}
+
+	public LocalDate getDueDate() {
+		return dueDate;
+	}
+
+	public void setDueDate(LocalDate dueDate) {
+		this.dueDate = dueDate;
+	}
+
+	public double getValue() {
+		return value;
+	}
+
+	public void setValue(double value) {
+		this.value = value;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	public PaymentForm getPaymentForm() {
+		return paymentForm;
+	}
+
+	public void setPaymentForm(PaymentForm paymentForm) {
+		this.paymentForm = paymentForm;
+	}
+
+	public StatusExpense getStatus() {
+		return Status;
+	}
+
+	public void setStatus(StatusExpense status) {
+		Status = status;
+	}
+
+	public String getObservation() {
+		return observation;
+	}
+
+	public void setObservation(String observation) {
+		this.observation = observation;
+	}
 	
 }
